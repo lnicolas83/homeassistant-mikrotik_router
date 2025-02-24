@@ -196,6 +196,11 @@ class MikrotikAPI:
             try:
                 response = list(response)
             except Exception as e:
+                
+                if path == "/system/health":
+                    self.lock.release()
+                    return list()
+                                
                 self.disconnect(f"building list for path {path}", e)
                 self.lock.release()
                 return None
