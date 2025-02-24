@@ -532,6 +532,10 @@ class MikrotikCoordinator(DataUpdateCoordinator[None]):
                 self.support_capsman = False
                 self._wifimodule = "wifi"
                 
+            elif (self.major_fw_version == 7 and self.minor_fw_version >= 13) or self.major_fw_version > 7:
+                self.support_capsman = False
+                self._wifimodule = "wifi"
+                
             else:
                 self.support_capsman = True
                 self.support_wireless = bool(self.minor_fw_version < 13)
@@ -1425,6 +1429,7 @@ class MikrotikCoordinator(DataUpdateCoordinator[None]):
                     {"name": "cpu-temperature", "default": 0},
                     {"name": "power-consumption", "default": 0},
                     {"name": "board-temperature1", "default": 0},
+                    {"name": "phy-temperature", "default": 0},
                     {"name": "fan1-speed", "default": 0},
                     {"name": "fan2-speed", "default": 0},
                 ],
